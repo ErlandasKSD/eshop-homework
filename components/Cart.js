@@ -12,7 +12,7 @@ const CartContainer = styled('div')({
 const ProductItem = styled('div')({
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'space-between', // Added for spacing the remove button
+  justifyContent: 'space-between',
   margin: '16px',
   border: '1px solid #ccc',
   padding: '8px',
@@ -36,7 +36,7 @@ const RemoveButton = styled('button')({
 });
 
 const CartPage = () => {
-  const { state: { cart }, dispatch } = useCart(); // Destructure dispatch
+  const { state: { cart }, dispatch } = useCart();
 
   const [cartWithProductInfo, setCartWithProductInfo] = useState([]);
 

@@ -1,8 +1,8 @@
-import { CartProvider } from '../components/CartContext'; // Import the CartProvider
+import { CartProvider } from '../components/CartContext';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <CartProvider> {/* Wrap your app with CartProvider */}
+    <CartProvider>
       <Component {...pageProps} />
     </CartProvider>
   );

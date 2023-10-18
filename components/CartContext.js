@@ -27,7 +27,6 @@ const cartReducer = (state, action) => {
         state.cart.push(action.payload);
       }
 
-      // Check if window is defined before accessing localStorage
       if (typeof window !== 'undefined') {
         localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(state.cart));
       }
@@ -36,7 +35,6 @@ const cartReducer = (state, action) => {
     case 'REMOVE_FROM_CART':
       state.cart = state.cart.filter((item) => item.productId !== action.payload.productId);
 
-      // Check if window is defined before accessing localStorage
       if (typeof window !== 'undefined') {
         localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(state.cart));
       }
@@ -45,7 +43,6 @@ const cartReducer = (state, action) => {
     case 'CLEAR_CART':
       state.cart = [];
 
-      // Check if window is defined before accessing localStorage
       if (typeof window !== 'undefined') {
         localStorage.removeItem(CART_STORAGE_KEY);
       }
@@ -63,7 +60,6 @@ export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
 
   useEffect(() => {
-    // Check if window is defined before accessing localStorage
     if (typeof window !== 'undefined') {
       localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(state.cart));
     }
