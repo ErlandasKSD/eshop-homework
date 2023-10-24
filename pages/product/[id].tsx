@@ -7,6 +7,7 @@ import { fetchProduct } from '../../api/product';
 import CartButton from '../../components/CartButton';
 import { useCart } from '../../components/CartContext';
 import Link from 'next/link';
+import Button from '@mui/material/Button';
 
 const ProductPageContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -15,51 +16,54 @@ const ProductPageContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(2),
 }));
 
-const Product = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(2),
+const productStyles = {
+  padding: '16px',
   border: '1px solid #e0e0e0',
-  borderRadius: theme.spacing(1),
-}));
+  borderRadius: '4px',
+};
 
-const ProductName = styled('div')(({ theme }) => ({
+const Product = styled(Box)(productStyles);
+
+const nameStyles = {
   fontSize: '1.5rem',
   fontWeight: 'bold',
-  marginBottom: theme.spacing(1),
-}));
+  marginBottom: '8px',
+};
 
-const ProductImage = styled(Image)({
-  width: 300,
-  height: 300,
+const imageStyles = {
+  width: '300px',
+  height: '300px',
   marginBottom: '16px',
-});
+};
 
-const ProductDescription = styled('div')(({ theme }) => ({
+const descriptionStyles = {
   fontSize: '1rem',
-  marginBottom: theme.spacing(2),
-}));
+  marginBottom: '16px',
+};
 
-const ProductPrice = styled('div')(({ theme }) => ({
+const priceStyles = {
   color: 'green',
   fontSize: '1.25rem',
-  marginBottom: theme.spacing(2),
-}));
+  marginBottom: '16px',
+};
 
-const ProductRating = styled('div')(({ theme }) => ({
+const ratingStyles = {
   fontSize: '1rem',
-  marginBottom: theme.spacing(2),
-}));
+  marginBottom: '16px',
+};
 
-const AddToCartButton = styled('button')(({ theme }) => ({
+const buttonStyles = {
   background: 'green',
   color: 'white',
   border: 'none',
   padding: '10px 20px',
   cursor: 'pointer',
   fontSize: '1.25rem',
+  transition: 'background-color 0.3s',
   '&:hover': {
     background: 'darkgreen',
   },
-}));
+};
 
 const ProductPage = () => {
   const router = useRouter();
@@ -96,17 +100,25 @@ const ProductPage = () => {
       </Link>
       <CartButton />
       <Product>
-        <ProductName>{product.title}</ProductName>
-        <ProductImage
+        <Box sx={nameStyles}>{product.title}</Box>
+        <Image
           src={product.image}
           alt={product.title}
           width={300}
           height={300}
+          style={imageStyles}
         />
-        <ProductDescription>{product.description}</ProductDescription>
-        <ProductPrice>${product.price}</ProductPrice>
-        <ProductRating>Rating: {product.rating.rate} ({product.rating.count} reviews)</ProductRating>
-        <AddToCartButton onClick={() => addToCart(product.id, 1)}>Add to Cart</AddToCartButton>
+        <Box sx={descriptionStyles}>{product.description}</Box>
+        <Box sx={priceStyles}>${product.price}</Box>
+        <Box sx={ratingStyles}>
+          Rating: {product.rating.rate} ({product.rating.count} reviews)
+        </Box>
+        <Button
+          onClick={() => addToCart(product.id, 1)}
+          sx={buttonStyles}
+        >
+          Add to Cart
+        </Button>
       </Product>
     </ProductPageContainer>
   );

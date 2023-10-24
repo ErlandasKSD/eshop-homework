@@ -22,7 +22,7 @@ const Button = styled('button')({
   },
 });
 
-const Index = () => {
+const Index: React.FC = () => {
   return (
     <HomeContainer>
       <h1>My simple e-shop homework</h1>
