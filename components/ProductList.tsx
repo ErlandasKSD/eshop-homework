@@ -1,15 +1,9 @@
 import React from 'react';
-import { Box, Button, Theme } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from './CartContext';
-
-export interface Product {
-  id: number;
-  title: string;
-  price: number;
-  image: string;
-}
+import { Product } from '../models/Product';
 
 interface ProductListProps {
   products: Product[];

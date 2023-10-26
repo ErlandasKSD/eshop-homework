@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import ProductList from '../components/ProductList';
+import { Product } from '../models/Product';
 import CartButton from '../components/CartButton';
 import { fetchProducts } from '../api/products';
-import { Product } from '../components/ProductList';
 
-const ProductsPage: React.FC = () => {  
+const Products: React.FC = () => {  
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -22,4 +22,4 @@ const ProductsPage: React.FC = () => {
   );
 };
 
-export default ProductsPage;
+export default Products;

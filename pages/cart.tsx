@@ -1,18 +1,18 @@
 import React from 'react';
-import Cart from '../components/Cart';
-import { Product } from '../components/ProductList';
+import CartPage from '../components/CartPage';
+import { Product } from '../models/Product';
 
-interface CartPageProps {
-  cartItems: Product[];
+interface CartProps {
+  products: Product[];
   onAddToCart: (product: Product[]) => void;
 }
 
-const CartPage: React.FC<CartPageProps> = ({ cartItems, onAddToCart }) => {
+const Cart: React.FC<CartProps> = ({ products, onAddToCart }) => {
   return (
     <div>
-      <Cart items={cartItems} onAddToCart={onAddToCart} />
+      <CartPage products={products} onAddToCart={onAddToCart} />
     </div>
   );
-};
+}
 
-export default CartPage;
+export default Cart;

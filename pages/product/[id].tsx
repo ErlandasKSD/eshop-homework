@@ -8,6 +8,7 @@ import CartButton from '../../components/CartButton';
 import { useCart } from '../../components/CartContext';
 import Link from 'next/link';
 import Button from '@mui/material/Button';
+import { Product } from '../../models/Product';
 
 const ProductPageContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -22,7 +23,7 @@ const productStyles = {
   borderRadius: '4px',
 };
 
-const Product = styled(Box)(productStyles);
+const ProductContainer = styled(Box)(productStyles);
 
 const nameStyles = {
   fontSize: '1.5rem',
@@ -68,11 +69,11 @@ const buttonStyles = {
 const ProductPage = () => {
   const router = useRouter();
   const { id } = router.query;
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState<Product | null>(null);
 
   useEffect(() => {
     if (id) {
-      fetchProduct(id)
+      fetchProduct(+id)
         .then((data) => setProduct(data))
         .catch((error) => console.error(error));
     }
@@ -80,7 +81,7 @@ const ProductPage = () => {
 
   const { dispatch } = useCart();
 
-  const addToCart = (productId, quantity) => {
+  const addToCart = (productId: number, quantity: number) => {
     dispatch({
       type: 'ADD_TO_CART',
       payload: { productId, quantity },
@@ -91,37 +92,37 @@ const ProductPage = () => {
 
   if (!product) {
     return <div>Loading...</div>;
+  } else {
+    return (
+      <ProductPageContainer>
+        <Link href="/products" style={{ marginBottom: '20px' }}>
+          <>Go to products</>
+        </Link>
+        <CartButton />
+        <ProductContainer>
+          <Box sx={nameStyles}>{product.title}</Box>
+          <Image
+            src={product.image}
+            alt={product.title}
+            width={300}
+            height={300}
+            style={imageStyles}
+          />
+          <Box sx={descriptionStyles}>{product.description}</Box>
+          <Box sx={priceStyles}>${product.price}</Box>
+          <Box sx={ratingStyles}>
+            Rating: {product.rating.rate} ({product.rating.count} reviews)
+          </Box>
+          <Button
+            onClick={() => addToCart(product.id, 1)}
+            sx={buttonStyles}
+          >
+            Add to Cart
+          </Button>
+        </ProductContainer>
+      </ProductPageContainer>
+    );
   }
-
-  return (
-    <ProductPageContainer>
-      <Link href='/products' style={{ marginBottom: '20px' }}>
-        <>Go to products</>
-      </Link>
-      <CartButton />
-      <Product>
-        <Box sx={nameStyles}>{product.title}</Box>
-        <Image
-          src={product.image}
-          alt={product.title}
-          width={300}
-          height={300}
-          style={imageStyles}
-        />
-        <Box sx={descriptionStyles}>{product.description}</Box>
-        <Box sx={priceStyles}>${product.price}</Box>
-        <Box sx={ratingStyles}>
-          Rating: {product.rating.rate} ({product.rating.count} reviews)
-        </Box>
-        <Button
-          onClick={() => addToCart(product.id, 1)}
-          sx={buttonStyles}
-        >
-          Add to Cart
-        </Button>
-      </Product>
-    </ProductPageContainer>
-  );
 };
 
 export default ProductPage;

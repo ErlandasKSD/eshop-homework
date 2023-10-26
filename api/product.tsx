@@ -1,12 +1,15 @@
-export async function fetchProduct(id) {
+import { Product } from '../models/Product';
+
+export async function fetchProduct(id: number): Promise<Product> {
     try {
       const response = await fetch(`https://fakestoreapi.com/products/${id}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-      const data = await response.json();
+      const data: Product = await response.json();
       return data;
     } catch (error) {
+      console.error('An error occurred while fetching product', error);
       throw error;
     }
   }
