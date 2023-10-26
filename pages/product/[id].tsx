@@ -10,20 +10,18 @@ import Link from 'next/link';
 import Button from '@mui/material/Button';
 import { Product } from '../../models/Product';
 
-const ProductPageContainer = styled(Box)(({ theme }) => ({
+const productPageContainerStyles = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  padding: theme.spacing(2),
-}));
+  padding: '16px',
+};
 
 const productStyles = {
   padding: '16px',
   border: '1px solid #e0e0e0',
   borderRadius: '4px',
 };
-
-const ProductContainer = styled(Box)(productStyles);
 
 const nameStyles = {
   fontSize: '1.5rem',
@@ -94,12 +92,12 @@ const ProductPage = () => {
     return <div>Loading...</div>;
   } else {
     return (
-      <ProductPageContainer>
+      <Box sx={productPageContainerStyles}>
         <Link href="/products" style={{ marginBottom: '20px' }}>
           <>Go to products</>
         </Link>
         <CartButton />
-        <ProductContainer>
+        <Box sx={productStyles}>
           <Box sx={nameStyles}>{product.title}</Box>
           <Image
             src={product.image}
@@ -119,8 +117,8 @@ const ProductPage = () => {
           >
             Add to Cart
           </Button>
-        </ProductContainer>
-      </ProductPageContainer>
+        </Box>
+      </Box>
     );
   }
 };

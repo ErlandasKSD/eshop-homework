@@ -1,15 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
-import { styled } from '@mui/material/styles';
+import { Box, Button } from '@mui/material';
 
-const HomeContainer = styled('div')({
+const HomeContainer = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   marginTop: '100px',
-});
+};
 
-const Button = styled('button')({
+const ButtonStyle = {
   background: 'blue',
   color: 'white',
   border: 'none',
@@ -20,19 +20,19 @@ const Button = styled('button')({
   '&:hover': {
     background: 'darkblue',
   },
-});
+};
 
 const Index: React.FC = () => {
   return (
-    <HomeContainer>
+    <Box sx={HomeContainer}>
       <h1>My simple e-shop homework</h1>
       <Link href="/products">
-        <Button>Go to Products</Button>
+        <Button sx={ButtonStyle}>Go to Products</Button>
       </Link>
       <Link href="/cart">
-        <Button>Go to Cart</Button>
+        <Button sx={ButtonStyle}>Go to Cart</Button>
       </Link>
-    </HomeContainer>
+    </Box>
   );
 };
 
