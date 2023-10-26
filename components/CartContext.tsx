@@ -1,12 +1,26 @@
-import { createContext, useContext, useReducer, useEffect } from 'react';
+import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
 
 const CART_STORAGE_KEY = 'cart';
 
-const initialCartState = {
+export interface CartItem {
+  productId: number;
+  quantity: number;
+}
+
+interface CartState {
+  cart: CartItem[];
+}
+
+type CartAction =
+  | { type: 'ADD_TO_CART'; payload: CartItem }
+  | { type: 'REMOVE_FROM_CART'; payload: { productId: number } }
+  | { type: 'CLEAR_CART' };
+
+const initialCartState: CartState = {
   cart: [],
 };
 
-const CartContext = createContext();
+const CartContext = createContext<{ state: CartState; dispatch: React.Dispatch<CartAction> } | undefined>(undefined);
 
 export const useCart = () => {
   const context = useContext(CartContext);
@@ -16,7 +30,7 @@ export const useCart = () => {
   return context;
 };
 
-const cartReducer = (state, action) => {
+const cartReducer = (state: CartState, action: CartAction): CartState => {
   switch (action.type) {
     case 'ADD_TO_CART':
       const existingProductIndex = state.cart.findIndex((item) => item.productId === action.payload.productId);
@@ -53,8 +67,12 @@ const cartReducer = (state, action) => {
   }
 };
 
-export const CartProvider = ({ children }) => {
-  const savedCart = (typeof window !== 'undefined') ? JSON.parse(localStorage.getItem(CART_STORAGE_KEY)) : null;
+interface CartProviderProps {
+  children: ReactNode;
+}
+
+export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
+  const savedCart = (typeof window !== 'undefined' && localStorage.getItem(CART_STORAGE_KEY)) ? JSON.parse(localStorage.getItem(CART_STORAGE_KEY)!) : null;
   const initialState = savedCart ? { cart: savedCart } : initialCartState;
 
   const [state, dispatch] = useReducer(cartReducer, initialState);

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import ProductList from '../components/ProductList';
+import { Product } from '../models/Product';
 import CartButton from '../components/CartButton';
 import { fetchProducts } from '../api/products';
-import { saveCartToLocalStorage, loadCartFromLocalStorage } from '../api/cart';
 
-const ProductsPage = () => {
-  const [products, setProducts] = useState([]);
+const Products: React.FC = () => {  
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     fetchProducts()
@@ -17,9 +17,9 @@ const ProductsPage = () => {
     <div>
       <CartButton />
       <h1>Products</h1>
-      <ProductList products={products}/>
+      <ProductList products={products} />
     </div>
   );
 };
 
-export default ProductsPage;
+export default Products;

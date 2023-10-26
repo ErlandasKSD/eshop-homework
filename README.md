@@ -42,3 +42,12 @@ root page
 /cart
 /products
 /product/:id
+
+## Need to do
+1. rewrite files in TSX - TypeScript
+2. change styling to use MUI components and override their classes without `styled`, use sx prop
+3. introduce simple layout
+4. add simple unit test at least
+5. write middleware for api
+6. introduce ssg where possible
+7. use ssr fetching
