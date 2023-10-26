@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
-import { styled } from '@mui/material/styles';
 import Image from 'next/image';
 import { fetchProduct } from '../../api/product';
 import CartButton from '../../components/CartButton';
