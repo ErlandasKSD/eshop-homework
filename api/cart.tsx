@@ -19,3 +19,4 @@ export const saveCartToLocalStorage = (cartData: CartItem[]) => {
     }
     return [];
   };
+  

@@ -13,3 +13,4 @@ export async function fetchProduct(id: number): Promise<Product> {
       throw error;
     }
   }
+  
